@@ -144,18 +144,18 @@ $$a + b(1+e^{-(cx+d)})^{-1}.$$
 
 ### SARIMA Model
 
-The SARIMA model exclusively considers historical values of daily mean ActivePower. First, we use the Augmented Dickey-Fuller test which provided a p-value of 0.018, which is less than 0.05, so the series is stationary. We used the the library pmdarima's auto_arima function to determine optimal p,q,P,Q parameters (where d=D=0 because of the ADF test) using the AIC criterion. This provided optimal values of p=6,q=0,P=0,Q=0 for all reasonable values of seasonality (7, 31, 365). We use these values in a statsmodels library SARIMAX model.
+The SARIMA model exclusively considers historical values of daily mean ActivePower. First, we use the Augmented Dickey-Fuller test which provided a p-value of 0.004, which is less than 0.05, so the series is stationary. We used the the library pmdarima's auto_arima function to determine optimal p,q,P,Q parameters (where d=D=0 because of the ADF test) using the AIC criterion. This provided optimal values of p=2,q=1,P=0,Q=0 for a seasonality value of 31. We use these values in a statsmodels library SARIMAX model.
 
 ### XGBoost (XGB) Model
 
-For the XGBoost model, we use up to 1000 estimators and a stopping criterion of 50 iterations without increased validation performance. The 80% model stopped after 53 iterations, while the All-15 model atopped after 63.
+For the XGBoost model, we use up to 1000 estimators and a stopping criterion of 50 iterations without increased validation performance. The 80% model stopped after 55 iterations, while the All-15 model atopped after 66.
 
 The XGBoost model provided the following feature importances for each train/test set.
 
 | Train/Test set | AmbientTemperature | WindDirection | WindSpeed |
 |---|---|---|---|
-| 80% | 0.0015 | 0.0015 | 0.9967 | 
-| All-15 | 0.0021 | 0.0018 | 0.9960 |
+| 80% | 0.0014 | 0.0016 | 0.9967 | 
+| All-15 | 0.0024 | 0.0021 | 0.9955 |
 
 Clearly the model figured out the low correlation between AmbientTemperature/WindDirection and ActivePower.
 
@@ -176,19 +176,19 @@ The results are then tabulated as follows.
 
 | Model | Train/Test Set | MSE | MAPE | MAE | MaxE | R2 |
 |---|---|---|---|---|---|---|
-| LR | 80% | 6490.12 | 0.36 | 76.29 | 113.77 | 0.49 |
-| CF | 80% | 2497.16 | 0.25 | 45.10 | 91.01 | 0.81 |
-| SARIMA | 80% | 63766.10 | 1.35 | 209.13 | 566.40 | -3.89 |
-| XGB | 80% | 682.42 | 0.11 | 21.88 | 51.96 | 0.95 |
+| LR | 80% | 6490.12 | 0.36 | 76.20 | 112.98 | 0.49 |
+| CF | 80% | 3062.16 | 0.27 | 49.45 | 114.78 | 0.76 |
+| SARIMA | 80% | 60388.19 | 1.33 | 201.60 | 537.53 | -3.72 |
+| XGB | 80% | 745.97 | 0.13 | 25.40 | 35.58 | 0.94 |
 |---|---|---|---|---|---|---|
-| LR | All-15 | 2883.57 | 0.07 | 45.82 | 102.33 | 0.89 |
-| CF | All-15 | 1154.22 | 0.04 | 27.19 | 57.94 | 0.96 |
-| SARIMA | All-15 | 85705.53 | 0.37 | 254.31 | 510.56 | -1.88 |
-| XGB | All-15 | 1360.35 | 0.05 | 34.38 | 60.22 | 0.95 |
+| LR | All-15 | 2896.25 | 0.07 | 45.96 | 102.42 | 0.89 |
+| CF | All-15 | 1480.68 | 0.04 | 30.01 | 83.90 | 0.94 |
+| SARIMA | All-15 | 88115.72 | 0.37 | 259.49 | 522.83 | -2.28 |
+| XGB | All-15 | 1428.85 | 0.05 | 32.48 | 65.66 | 0.95 |
 
 As expected, all models improved when getting access to more data in the All-15 train/test set. However, the SARIMA model was pretty terrible for both sets. 
 
-The XGBoost model was clearly dominant in the 80% train/test set, surprisingly even beating out the curve-fit model by a significant margin across all metrics. The results mostly balanced out between the two of them in the All-15 train/test set. 
+The XGBoost model was clearly dominant in the 80% train/test set, surprisingly even beating out the Curve-Fit model by a significant margin across all metrics. The results mostly balanced out between the two of them in the All-15 train/test set. 
 
 The plotted predictions versus actual values can be found below. In the 80% test set, all models except SARIMA tended to follow the track of the actual values fairly well, even if they were a little above or below. Interestingly in the All-15 test set, all models except SARIMA predicted a peak-then-dropoff in value on March 28, while the actual value steadily rose.
 
