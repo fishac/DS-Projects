@@ -4,10 +4,10 @@
 ## Table of Contents
 
 <ul>
-	<li>[Overview (link)](#Overview)</li>
-	<li>[Data (link)](#Data)</li>
-	<li>[Models (link)](#Models)</li>
-	<li>[Results (link)](#Results)</li>
+	<li>Overview</li>
+	<li>Data</li>
+	<li>Models</li>
+	<li>Results</li>
 </ul>
 
 

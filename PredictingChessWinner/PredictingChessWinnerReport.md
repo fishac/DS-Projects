@@ -3,10 +3,10 @@
 ## Table of Contents
 
 <ul>
-	<li>[Overview (link)](#Overview)</li>
-	<li>[Data (link)](#Data)</li>
-	<li>[Models (link)](#Models)</li>
-	<li>[Results (link)](#Results)</li>
+	<li>Overview</li>
+	<li>Data</li>
+	<li>Models</li>
+	<li>Results</li>
 </ul>
 
 ## Overview
@@ -223,7 +223,7 @@ The following plots show the accuracy of the models by total moves of the game. 
 ![](./figs/lr1accuracybymoves.png)
 ![](./figs/lr2accuracybymoves.png)
 
-The following plots show the accuracy of the models by absolute material difference, defined in section [Data (link)](#Data). All models improved in performance as absolute material difference grew. The baseline model was the weakest in this regard as it only relies upon the stronger players having better material difference after move 20, rather than actually using piece information on board to make a prediction. In this metric, the XGB1/XGB2 and LR1/LR2 are essentially identical. The models which use rating are more accurate for small values of material difference, as they trust the higher rated player will convert the small advantage to a large one, or come back from a material deficit.
+The following plots show the accuracy of the models by absolute material difference, defined in section Visualization and analysis. All models improved in performance as absolute material difference grew. The baseline model was the weakest in this regard as it only relies upon the stronger players having better material difference after move 20, rather than actually using piece information on board to make a prediction. In this metric, the XGB1/XGB2 and LR1/LR2 are essentially identical. The models which use rating are more accurate for small values of material difference, as they trust the higher rated player will convert the small advantage to a large one, or come back from a material deficit.
 
 ![](./figs/baselineaccuracybymaterialdifference.png)
 ![](./figs/xgb1accuracybymaterialdifference.png)
