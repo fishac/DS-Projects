@@ -134,6 +134,15 @@ Finally, "{COLOR} king blockers" gives an indication of king safety. If the oppo
 
 ### Visualization and analysis
 
+There are 3,825,377 games in the dataset. Of these, 1,916,228 (50.1%) are games where white won and 1,909,149 (49.9%) are games where black won. 
+
+In these games, white castled kingside 2,698,272 times, queenside 482,479 times, and didn't castle 644,626 times, while black castled kingside 2,561,277 times, queenside 444,340, and didn't castle 819,760 times. Kingside castling is definitely the most common. Castling queenside requires moving the queen out of the way first and places your king one square too far away to protect the a-pawn without another move, so it is more of a commitment. Note that not castling  by the end of turn 20 could be either by choice, because a player lost castling rights due to being forced to move their king or rooks, or because a player is unable to castle due to the check rules. Because of this, not castling by the end of turn 20 could be an indication of being at a disadvantage.
+
+The following plots show the total games and white win rate for each combination of white and black castling (such as "kingside-kingside" or "queenside-kingside"). We see that kingside-kingside is by far the most common combination of castling. The next-most common combinations all involve kingside castling. Castling combinations involving only queenside or no castling are very uncommon. Additionally, we see that same-direction castling has an even win rate between white and black, while one side castling and the other not gives a significant advantage to the castling side. We see that kingside-queenside or queenside-kingside castling gives advantage to the kingside castling player, on average.
+
+![](./figs/gamespercastlepair.png) 
+![](./figs/winratepercastlepair.png)
+
 The following plots show the total games per number of moves and total games per absolute rating difference. Recall that there are 2 moves per turn. We see the expected trend of longer games occuring less frequently, and players with a large rating gap being paired less frequently. Players are typically paired through "quick play" where the system matches up players for a single game, or through a tournament where players get paired with other players with similar tournament performance, which correlates with rating. The jump in games at 250 rating point difference is simply caused by larger buckets.
 
 ![](./figs/gamespermoves.png) 
@@ -185,7 +194,7 @@ We use logistic regression models from sklearn with max_iter=1000, penalty="elas
 
 ### XGBoost Model
 
-We use boosted-trees models from XGBoost with n_estimators=1000, early_stopping_rounds=15, with 60% of the total data for training, and 20% of the total data for validation (necessary for early stopping). The model incorporating metadata such as player ratings had the best iteration of 160, while the model only using game history information had the best iteration of 176.
+We use boosted-trees models from XGBoost with n_estimators=1000, early_stopping_rounds=15, with 60% of the total data for training, and 20% of the total data for validation (necessary for early stopping). The XGB models optimized the logistic function but used accuracy as a metric for early stopping. The model incorporating metadata such as player ratings had the best iteration of 160, while the model only using game history information had the best iteration of 176.
 
 ## Results
 
