@@ -1,5 +1,16 @@
 # Forecasting Power Generation From A Wind Turbine
 
+
+## Table of Contents
+
+<ul>
+	<li>[Overview (link)](#Overview)</li>
+	<li>[Data (link)](#Data)</li>
+	<li>[Models (link)](#Models)</li>
+	<li>[Results (link)](#Results)</li>
+</ul>
+
+
 ## Overview
 
 This project analyzes and creates predictive models for a dataset of wind power generation. This dataset represents several years of data points taken every 10 minutes from January 2018 to March 2020. These data points include information on power generation, internal part temperatures, wind speed, wind direction, etc. There are many missing values in the dataset.
@@ -8,7 +19,10 @@ The dataset came with the suggested goal of predicting power output 15 days ahea
 
 I will explore and clean the dataset before applying a variety of techniques to the task including a baseline linear regression, a curve-fit based on an observed relationship between a predictor and the output, a SARIMA model, and finish off with using the XGBoost algorithm of boosted trees.
 
+The best models achieved a mean absolute percentage error of approximately 5% on unseen data. 
+
 This report contains the key details of the project. The full working notebook can be found in ForecastingWindPower.ipynb.
+
 
 ### Keywords
 
@@ -93,7 +107,9 @@ The correlation plot verifies low correlation between AmbientTemperature/WindDir
 
 Likely WindSpeed will be the only major factor in determining the power output, but it is possible the others have some effect. We will see this in our modeling tests.
 
-## Forecasting Power Generation
+## Models 
+
+We will test with a range of models including a linear regression baseline model, a curve-fit model, a SARIMA model, and an XGBoost model. Performance of the models is considered in the following section [Results (link)](#Results).
 
 ### Preparation
 
@@ -114,9 +130,6 @@ We split the data into two different sets of training and test data for validati
 
 ![](./figs/TrainTest.png)
 
-## Models 
-
-We will test with a range of models including a linear regression baseline model, a curve-fit model, a SARIMA model, and an XGBoost model. Performance of the models is considered in the following section [Results](#Results).
 
 ### Linear Regreession (LR) Baseline Model
 
